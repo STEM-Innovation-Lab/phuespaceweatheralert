@@ -7,8 +7,8 @@ red = 0
 green = 25500
 yellow = 12750
 orange  = 5000
-_sleep = 60 * 3
-
+_sleep = 60 * 3		# period of time for code to 'sleep' pre-API calling [min]
+flash_seq = 3		# number of times Kp alert flashes
 
 def present():
 	b = Bridge('10.0.0.12')
@@ -42,7 +42,7 @@ def present():
 	time.sleep(2.5)
 	b.set_group(1, 'sat', 255)
 	b.set_group(1, 'hue', color) #Darken
-	for i in range(0,3):
+	for i in range(0,flash_seq):
 		b.set_group(1, 'bri', 255, transitiontime=5) # On
 		time.sleep(0.6)
 		b.set_group(1, 'bri', 0, transitiontime=5) # off
@@ -63,3 +63,4 @@ except KeyboardInterrupt:
 except Exception as e:
     print('Something else went wrong... Check logs.')
     print(e)
+	
